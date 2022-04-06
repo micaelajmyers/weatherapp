@@ -74,6 +74,38 @@ function search(event) {
     let windSpeed = Math.round(response.data.wind.speed);
     let largeWind = document.querySelector("#wind");
     largeWind.innerHTML = `${windSpeed} mph`;
+    let iconid = response.data.weather[0].icon;
+    let largeEmoji = document.querySelector("#large-icon");
+    console.log(iconid);
+    //Emoji Array
+    var emo = [
+      { id: "01d", type: "fa-solid fa-sun" },
+      { id: "01n", type: "fa-solid fa-moon" },
+      { id: "02d", type: "fa-solid fa-cloud-sun" },
+      { id: "02n", type: "fa-solid fa-cloud-moon" },
+      { id: "03d", type: "fa-solid fa-cloud" },
+      { id: "03n", type: "fa-solid fa-cloud-moon" },
+      { id: "04d", type: "fa-solid fa-cloud" },
+      { id: "04n", type: "fa-solid fa-cloud-moon" },
+      { id: "09d", type: "fa-solid fa-cloud-showers-heavy" },
+      { id: "09n", type: "fa-solid fa-cloud-moon-rain" },
+      { id: "10d", type: "fa-solid fa-cloud-showers-heavy" },
+      { id: "10n", type: "fa-solid fa-cloud-moon-rain" },
+      { id: "11d", type: "fa-solid fa-cloud-bolt" },
+      { id: "11n", type: "fa-solid fa-cloud-bolt" },
+      { id: "13d", type: "fa-solid fa-snowflake" },
+      { id: "13n", type: "fa-solid fa-snowflake" },
+      { id: "50d", type: "fa-solid fa-smog" },
+      { id: "50n", type: "fa-solid fa-smog" },
+    ];
+    //Emoji Array
+    var found = emo.find(function (emo, index) {
+      if (emo.id == iconid) return true;
+    });
+    let emojiname = found.type;
+    largeEmoji.className += emojiname;
+    largeEmoji.setAttribute("alt", response.data.weather[0].description);
+    console.log(emojiname);
   }
 
   axios.get(apiUrl).then(showTemperature);
@@ -126,6 +158,39 @@ function showCurrentTemperature(position) {
     let windSpeed = Math.round(response.data.wind.speed);
     let largeWind = document.querySelector("#wind");
     largeWind.innerHTML = `${windSpeed} mph`;
+    let iconid = response.data.weather[0].icon;
+    let largeEmoji = document.querySelector("#large-icon");
+    console.log(iconid);
+
+    //Emoji Array
+    var emo = [
+      { id: "01d", type: "fa-solid fa-sun" },
+      { id: "01n", type: "fa-solid fa-moon" },
+      { id: "02d", type: "fa-solid fa-cloud-sun" },
+      { id: "02n", type: "fa-solid fa-cloud-moon" },
+      { id: "03d", type: "fa-solid fa-cloud" },
+      { id: "03n", type: "fa-solid fa-cloud-moon" },
+      { id: "04d", type: "fa-solid fa-cloud" },
+      { id: "04n", type: "fa-solid fa-cloud-moon" },
+      { id: "09d", type: "fa-solid fa-cloud-showers-heavy" },
+      { id: "09n", type: "fa-solid fa-cloud-moon-rain" },
+      { id: "10d", type: "fa-solid fa-cloud-showers-heavy" },
+      { id: "10n", type: "fa-solid fa-cloud-moon-rain" },
+      { id: "11d", type: "fa-solid fa-cloud-bolt" },
+      { id: "11n", type: "fa-solid fa-cloud-bolt" },
+      { id: "13d", type: "fa-solid fa-snowflake" },
+      { id: "13n", type: "fa-solid fa-snowflake" },
+      { id: "50d", type: "fa-solid fa-smog" },
+      { id: "50n", type: "fa-solid fa-smog" },
+    ];
+    //Emoji Array
+    var found = emo.find(function (emo, index) {
+      if (emo.id == iconid) return true;
+    });
+    let emojiname = found.type;
+    largeEmoji.className += emojiname;
+    largeEmoji.setAttribute("alt", response.data.weather[0].description);
+    console.log(emojiname);
   }
 
   axios.get(apiUrl).then(showTemperature);
