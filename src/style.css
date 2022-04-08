@@ -72,18 +72,26 @@ button {
 }
 
 .measurementButton {
-  padding: 10 px;
-  background: #ffff;
-  border: none;
-  margin-top: 5px;
-  color: #2d5b61;
   position: relative;
-  top: 16px;
-  right: 42px;
+  top: 23px;
+  right: 38px;
+  padding: 10 px;
+  border: none;
+  margin-top: 20px;
+  color: #67b7c2;
+  text-decoration: none;
+  cursor: default;
 }
 
 .measurementButton:hover {
-  opacity: 70%;
+  opacity: 100%;
+  color: #2d5b61;
+  cursor: default;
+}
+
+.active {
+  color: #2d5b61;
+  cursor: default;
 }
 .current-weather-icon {
   font-size: 72px;

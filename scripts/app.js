@@ -76,7 +76,8 @@ function search(event) {
     largeWind.innerHTML = `${windSpeed} mph`;
     let iconid = response.data.weather[0].icon;
     let largeEmoji = document.querySelector("#large-icon");
-    console.log(iconid);
+
+    ftemp = response.data.main.temp;
     //Emoji Array
     var emo = [
       { id: "01d", type: "fa-solid fa-sun" },
@@ -117,22 +118,22 @@ form.addEventListener("submit", search);
 // Get Weather from API for Searched City
 
 //fahrenheit to celsius
-function ftoc(event) {
-  event.preventDefault();
-  let link = document.querySelector("#msbutton");
+//function ftoc(event) {
+//event.preventDefault();
+//let link = document.querySelector("#msbutton");
 
-  if (link.innerHTML == "°F | °C") {
-    link.innerHTML = "°C | °F";
-  } else {
-    link.innerHTML = "°F | °C";
-  }
-  // if (link == "°F | °C") {
-  // link.innerHTML = "°C | °F"
-  //} else {
-  //link.innerHTML = "°F | °C"
-}
-let ftocLink = document.querySelector("#msbutton");
-ftocLink.addEventListener("click", ftoc);
+//if (link.innerHTML == "°F | °C") {
+//link.innerHTML = "°C | °F";
+//} else {
+//link.innerHTML = "°F | °C";
+//}
+// if (link == "°F | °C") {
+// link.innerHTML = "°C | °F"
+//} else {
+//link.innerHTML = "°F | °C"
+//}
+//let ftocLink = document.querySelector("#msbutton");
+//ftocLink.addEventListener("click", ftoc);
 //fahrenheit to celsius
 
 //Get Current Location Weather with API
@@ -160,7 +161,8 @@ function showCurrentTemperature(position) {
     largeWind.innerHTML = `${windSpeed} mph`;
     let iconid = response.data.weather[0].icon;
     let largeEmoji = document.querySelector("#large-icon");
-    console.log(iconid);
+
+    ftemp = response.data.main.temp;
 
     //Emoji Array
     var emo = [
@@ -207,3 +209,27 @@ getCurrentPosition();
 let currentButton = document.querySelector("#current-button");
 currentButton.addEventListener("click", getCurrentPosition);
 //Current Button
+
+function displayCTemp(event) {
+  event.preventDefault();
+  let celsiusTemp = ((ftemp - 32) * 5) / 9;
+  let temperatureElement = document.querySelector("#current-temperature");
+  fahrenheitLink.classList.remove("active");
+  celsiusLink.classList.add("active");
+  temperatureElement.innerHTML = Math.round(celsiusTemp);
+}
+
+function displayFTemp(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#current-temperature");
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+  temperatureElement.innerHTML = Math.round(ftemp);
+}
+let ftemp = null;
+
+let celsiusLink = document.querySelector("#clink");
+celsiusLink.addEventListener("click", displayCTemp);
+
+let fahrenheitLink = document.querySelector("#flink");
+fahrenheitLink.addEventListener("click", displayFTemp);
