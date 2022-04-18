@@ -108,3 +108,8 @@ button {
 .mini-icon {
   font-size: 32px;
 }
+
+.weather-forecast-min {
+  font-size: smaller;
+  opacity: 0.6;
+}

@@ -45,6 +45,79 @@ function renderTime() {
 renderTime();
 // Time and Day
 
+function getForecast(coordinates) {
+  let apiKey = `182670c1e112ae39e969dc43c877351c`;
+  let apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=imperial`;
+  axios.get(apiURL).then(displayForecast);
+}
+
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[day];
+}
+
+//Weather Forecast
+function displayForecast(response) {
+  let forecast = response.data.daily;
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `<div class="row">`;
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      let forecastIconid = forecastDay.weather[0].icon;
+      //Emoji Array
+      var emo = [
+        { id: "01d", type: "fa-solid fa-sun" },
+        { id: "01n", type: "fa-solid fa-moon" },
+        { id: "02d", type: "fa-solid fa-cloud-sun" },
+        { id: "02n", type: "fa-solid fa-cloud-moon" },
+        { id: "03d", type: "fa-solid fa-cloud" },
+        { id: "03n", type: "fa-solid fa-cloud-moon" },
+        { id: "04d", type: "fa-solid fa-cloud" },
+        { id: "04n", type: "fa-solid fa-cloud-moon" },
+        { id: "09d", type: "fa-solid fa-cloud-showers-heavy" },
+        { id: "09n", type: "fa-solid fa-cloud-moon-rain" },
+        { id: "10d", type: "fa-solid fa-cloud-showers-heavy" },
+        { id: "10n", type: "fa-solid fa-cloud-moon-rain" },
+        { id: "11d", type: "fa-solid fa-cloud-bolt" },
+        { id: "11n", type: "fa-solid fa-cloud-bolt" },
+        { id: "13d", type: "fa-solid fa-snowflake" },
+        { id: "13n", type: "fa-solid fa-snowflake" },
+        { id: "50d", type: "fa-solid fa-smog" },
+        { id: "50n", type: "fa-solid fa-smog" },
+      ];
+      //Emoji Array
+      var foundTwo = emo.find(function (emo, index) {
+        if (emo.id == forecastIconid) return true;
+      });
+      let forecastEmojiname = foundTwo.type;
+      forecastHTML =
+        forecastHTML +
+        `     <div class="col-2">
+            <div class="forecast-date"> ${formatDay(forecastDay.dt)}</div>
+            <div class="mini-icon">
+              <i class="${forecastEmojiname}"></i>
+            </div>
+            <div class="forecast-temp">
+              <span class="weather-forecast-max">${Math.round(
+                forecastDay.temp.max
+              )}°</span>
+              <span class="weather-forecast-min">${Math.round(
+                forecastDay.temp.min
+              )}°</span>
+              </div>
+              </div>
+          `;
+    }
+  });
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
+//Weather Forecast
+
 // Get Weather from API for Searched City
 function search(event) {
   event.preventDefault();
@@ -106,7 +179,8 @@ function search(event) {
     let emojiname = found.type;
     largeEmoji.className += emojiname;
     largeEmoji.setAttribute("alt", response.data.weather[0].description);
-    console.log(emojiname);
+
+    getForecast(response.data.coord);
   }
 
   axios.get(apiUrl).then(showTemperature);
@@ -116,25 +190,6 @@ let form = document.querySelector("#search-bar");
 
 form.addEventListener("submit", search);
 // Get Weather from API for Searched City
-
-//fahrenheit to celsius
-//function ftoc(event) {
-//event.preventDefault();
-//let link = document.querySelector("#msbutton");
-
-//if (link.innerHTML == "°F | °C") {
-//link.innerHTML = "°C | °F";
-//} else {
-//link.innerHTML = "°F | °C";
-//}
-// if (link == "°F | °C") {
-// link.innerHTML = "°C | °F"
-//} else {
-//link.innerHTML = "°F | °C"
-//}
-//let ftocLink = document.querySelector("#msbutton");
-//ftocLink.addEventListener("click", ftoc);
-//fahrenheit to celsius
 
 //Get Current Location Weather with API
 function showCurrentTemperature(position) {
@@ -192,7 +247,8 @@ function showCurrentTemperature(position) {
     let emojiname = found.type;
     largeEmoji.className += emojiname;
     largeEmoji.setAttribute("alt", response.data.weather[0].description);
-    console.log(emojiname);
+
+    getForecast(response.data.coord);
   }
 
   axios.get(apiUrl).then(showTemperature);
