@@ -73,26 +73,16 @@ button {
 
 .measurementButton {
   position: relative;
-  top: 23px;
-  right: 38px;
+  top: 8px;
+  right: 41px;
   padding: 10 px;
   border: none;
   margin-top: 20px;
-  color: #67b7c2;
+  color: #2d5b61;
   text-decoration: none;
   cursor: default;
 }
 
-.measurementButton:hover {
-  opacity: 100%;
-  color: #2d5b61;
-  cursor: default;
-}
-
-.active {
-  color: #2d5b61;
-  cursor: default;
-}
 .current-weather-icon {
   font-size: 72px;
 }
@@ -112,4 +102,8 @@ button {
 .weather-forecast-min {
   font-size: smaller;
   opacity: 0.6;
+}
+
+.source {
+  margin-left: 5px;
 }

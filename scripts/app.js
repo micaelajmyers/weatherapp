@@ -40,7 +40,7 @@ function renderTime() {
   let myClock = document.querySelector("#today");
   myClock.innerHTML = "" + day + ", " + h + ":" + m + " " + ante;
 
-  setTimeout("renderTime()", 1000);
+  setTimeout("renderTime()", 100000);
 }
 renderTime();
 // Time and Day
@@ -149,7 +149,6 @@ function search(event) {
     largeWind.innerHTML = `${windSpeed} mph`;
     let iconid = response.data.weather[0].icon;
     let largeEmoji = document.querySelector("#large-icon");
-
     ftemp = response.data.main.temp;
     //Emoji Array
     var emo = [
@@ -182,7 +181,6 @@ function search(event) {
 
     getForecast(response.data.coord);
   }
-
   axios.get(apiUrl).then(showTemperature);
 }
 
@@ -265,27 +263,3 @@ getCurrentPosition();
 let currentButton = document.querySelector("#current-button");
 currentButton.addEventListener("click", getCurrentPosition);
 //Current Button
-
-function displayCTemp(event) {
-  event.preventDefault();
-  let celsiusTemp = ((ftemp - 32) * 5) / 9;
-  let temperatureElement = document.querySelector("#current-temperature");
-  fahrenheitLink.classList.remove("active");
-  celsiusLink.classList.add("active");
-  temperatureElement.innerHTML = Math.round(celsiusTemp);
-}
-
-function displayFTemp(event) {
-  event.preventDefault();
-  let temperatureElement = document.querySelector("#current-temperature");
-  celsiusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
-  temperatureElement.innerHTML = Math.round(ftemp);
-}
-let ftemp = null;
-
-let celsiusLink = document.querySelector("#clink");
-celsiusLink.addEventListener("click", displayCTemp);
-
-let fahrenheitLink = document.querySelector("#flink");
-fahrenheitLink.addEventListener("click", displayFTemp);
